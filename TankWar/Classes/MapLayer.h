@@ -44,6 +44,27 @@ public:
      */
     CCPoint objectPosition(CCTMXObjectGroup *group, const char *object);
 
+    /**
+     *	@brief	将触摸点的坐标转为Tmx地图上的坐标
+     *
+     *	@param 	pos 	触摸点的坐标
+     *
+     *	@return	Tmx地图上的坐标
+     */
+    CCPoint tileCoordinateFromPosition(CCPoint pos);
+
+    /**
+     *	@brief	将Tmx地图坐标转为瓦片值tileID，当tileID为0的时候表示该坐标上没有瓦片
+     *
+     *	@param 	pos 	Tmx地图上的坐标点
+     *
+     *	@return	0   该地图坐标上没有瓦片
+     *  @return -1  该地图坐标不在地图上
+     *  @return others  该地图坐标在地图上
+     */
+    int tileIDFromPosition(CCPoint pos);
+
+    TankSprite *_tank1;
 private:
     int _leve;
     
@@ -51,7 +72,8 @@ private:
     //cocos2d::CCTMXLayer* _bg2Layer;
     
     cocos2d::CCTMXObjectGroup* _objects;
-    CCSprite *_tank1;
+    
+    CCTMXTiledMap *map;
     
 };
 #endif /* defined(__TankWar__MapLayer__) */

@@ -30,7 +30,7 @@ void MapLayer::initWithMap(int leve, int tKind, int numLife)
     _leve = leve;
     
     // 解析tmx地图
-    cocos2d::CCTMXTiledMap *map = cocos2d::CCTMXTiledMap::create(CCString::createWithFormat("maps/map%d.tmx",leve)->getCString());
+    map = cocos2d::CCTMXTiledMap::create(CCString::createWithFormat("maps/map%d.tmx",leve)->getCString());
     
     // 地图的大小
     CCSize cSize = map->getContentSize();
@@ -58,6 +58,7 @@ void MapLayer::initWithMap(int leve, int tKind, int numLife)
     
     // 创建玩家坦克
     _tank1 = TankSprite::initWithDelegate(numLife, tKind, _bg1Layer->getContentSize());
+    _tank1->_mapLayer = this;
     
     // 设置玩家坦克坐标
     CCPoint tankPoint = this->objectPosition(_objects, "pl1");
@@ -73,4 +74,29 @@ CCPoint MapLayer::objectPosition(CCTMXObjectGroup *group,const char *object)
     point.x=dic->valueForKey("x")->intValue();
     point.y=dic->valueForKey("y")->intValue();
     return point;
+}
+
+CCPoint MapLayer::tileCoordinateFromPosition(CCPoint pos)
+{
+    CCSize szLayer = _bg1Layer->getLayerSize();
+    CCSize szTile = map->getTileSize();
+    
+    int cox = pos.x / szTile.width;
+    int coy = szLayer.height - pos.y / szTile.height;
+    
+    if ( (cox >= 0) && (cox < szLayer.width) && (coy >= 0) && (coy <= szLayer.height)) {
+        return ccp(cox, coy);
+    }else{
+        return ccp(-1,-1);
+    }
+}
+
+int MapLayer::tileIDFromPosition(CCPoint pos)
+{
+    CCPoint cpt = this->tileCoordinateFromPosition(pos);
+    if (cpt.x < 0) return  -1;
+    if (cpt.y < 0) return -1;
+    if (cpt.x >= _bg1Layer->getLayerSize().width) return -1;
+    if (cpt.y >= _bg1Layer->getLayerSize().height) return -1;
+    return _bg1Layer->tileGIDAt(cpt);
 }

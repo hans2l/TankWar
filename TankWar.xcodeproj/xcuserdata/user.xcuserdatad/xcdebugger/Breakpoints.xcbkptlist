@@ -7,13 +7,39 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "TankWar/Classes/TankSprite.cpp"
-         timestampString = "399958627.811716"
+         filePath = "TankWar/Classes/ControlLayer.cpp"
+         timestampString = "399991245.667835"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "23"
-         endingLineNumber = "23"
-         landmarkName = "TankSprite::init()"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
+         landmarkName = "ControlLayer::update(float t)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TankWar/Classes/MapLayer.cpp"
+         timestampString = "399993038.321342"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
+         landmarkName = "MapLayer::tileCoordinateFromPosition(CCPoint pos)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TankWar/Classes/MapLayer.cpp"
+         timestampString = "399993038.321342"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "82"
+         endingLineNumber = "82"
+         landmarkName = "MapLayer::tileCoordinateFromPosition(CCPoint pos)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

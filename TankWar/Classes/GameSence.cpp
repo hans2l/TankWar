@@ -21,7 +21,11 @@ bool GameScene::init()
         
         _mapLayer = MapLayer::create();
         _mapLayer->initWithMap(1, 1, 1);
-        addChild(_mapLayer);
+        addChild(_mapLayer, 1);
+        
+        _conLayer = ControlLayer::create();
+        _conLayer->_mapLayer = _mapLayer;
+        addChild(_conLayer, 1);
         
         bRet = true;
     } while (0);

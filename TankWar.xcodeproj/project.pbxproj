@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE452FD617D71DAF0042AEFC /* SneakyButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE452FCE17D71DAE0042AEFC /* SneakyButton.cpp */; };
+		CE452FD717D71DAF0042AEFC /* SneakyButtonSkinnedBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE452FD017D71DAE0042AEFC /* SneakyButtonSkinnedBase.cpp */; };
+		CE452FD817D71DAF0042AEFC /* SneakyJoystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE452FD217D71DAE0042AEFC /* SneakyJoystick.cpp */; };
+		CE452FD917D71DAF0042AEFC /* SneakyJoystickSkinnedBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE452FD417D71DAF0042AEFC /* SneakyJoystickSkinnedBase.cpp */; };
 		CE9535F317D58A9F00E91E51 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9535F217D58A9F00E91E51 /* QuartzCore.framework */; };
 		CE9535F517D58A9F00E91E51 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9535F417D58A9F00E91E51 /* OpenGLES.framework */; };
 		CE9535F717D58A9F00E91E51 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9535F617D58A9F00E91E51 /* OpenAL.framework */; };
@@ -211,6 +215,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE452FCE17D71DAE0042AEFC /* SneakyButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SneakyButton.cpp; path = Classes/SneakyButton.cpp; sourceTree = "<group>"; };
+		CE452FCF17D71DAE0042AEFC /* SneakyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SneakyButton.h; path = Classes/SneakyButton.h; sourceTree = "<group>"; };
+		CE452FD017D71DAE0042AEFC /* SneakyButtonSkinnedBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SneakyButtonSkinnedBase.cpp; path = Classes/SneakyButtonSkinnedBase.cpp; sourceTree = "<group>"; };
+		CE452FD117D71DAE0042AEFC /* SneakyButtonSkinnedBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SneakyButtonSkinnedBase.h; path = Classes/SneakyButtonSkinnedBase.h; sourceTree = "<group>"; };
+		CE452FD217D71DAE0042AEFC /* SneakyJoystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SneakyJoystick.cpp; path = Classes/SneakyJoystick.cpp; sourceTree = "<group>"; };
+		CE452FD317D71DAE0042AEFC /* SneakyJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SneakyJoystick.h; path = Classes/SneakyJoystick.h; sourceTree = "<group>"; };
+		CE452FD417D71DAF0042AEFC /* SneakyJoystickSkinnedBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SneakyJoystickSkinnedBase.cpp; path = Classes/SneakyJoystickSkinnedBase.cpp; sourceTree = "<group>"; };
+		CE452FD517D71DAF0042AEFC /* SneakyJoystickSkinnedBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SneakyJoystickSkinnedBase.h; path = Classes/SneakyJoystickSkinnedBase.h; sourceTree = "<group>"; };
 		CE9535EF17D58A9F00E91E51 /* TankWar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TankWar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9535F217D58A9F00E91E51 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CE9535F417D58A9F00E91E51 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -672,6 +684,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE452FDA17D71DC30042AEFC /* SneakInput */ = {
+			isa = PBXGroup;
+			children = (
+				CE452FCE17D71DAE0042AEFC /* SneakyButton.cpp */,
+				CE452FCF17D71DAE0042AEFC /* SneakyButton.h */,
+				CE452FD017D71DAE0042AEFC /* SneakyButtonSkinnedBase.cpp */,
+				CE452FD117D71DAE0042AEFC /* SneakyButtonSkinnedBase.h */,
+				CE452FD217D71DAE0042AEFC /* SneakyJoystick.cpp */,
+				CE452FD317D71DAE0042AEFC /* SneakyJoystick.h */,
+				CE452FD417D71DAF0042AEFC /* SneakyJoystickSkinnedBase.cpp */,
+				CE452FD517D71DAF0042AEFC /* SneakyJoystickSkinnedBase.h */,
+			);
+			name = SneakInput;
+			sourceTree = "<group>";
+		};
 		CE9535E617D58A9F00E91E51 = {
 			isa = PBXGroup;
 			children = (
@@ -1533,6 +1560,7 @@
 		CE95388E17D58AA200E91E51 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE452FDA17D71DC30042AEFC /* SneakInput */,
 				CE95391517D5E9FA00E91E51 /* GameSence.cpp */,
 				CE95391617D5E9FA00E91E51 /* GameSence.h */,
 				CE95391717D5E9FA00E91E51 /* MapLayer.cpp */,
@@ -1801,6 +1829,10 @@
 				CE95391A17D5E9FB00E91E51 /* MapLayer.cpp in Sources */,
 				CE95392E17D6155800E91E51 /* TankSprite.cpp in Sources */,
 				CEA8B8A617D6EFA800C84344 /* ControlLayer.cpp in Sources */,
+				CE452FD617D71DAF0042AEFC /* SneakyButton.cpp in Sources */,
+				CE452FD717D71DAF0042AEFC /* SneakyButtonSkinnedBase.cpp in Sources */,
+				CE452FD817D71DAF0042AEFC /* SneakyJoystick.cpp in Sources */,
+				CE452FD917D71DAF0042AEFC /* SneakyJoystickSkinnedBase.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 
 #include "MapLayer.h"
+#include "ControlLayer.h"
 
 class GameScene : public cocos2d::CCScene
 {
@@ -23,6 +24,7 @@ public:
     bool init();
 private:
     MapLayer *_mapLayer;
+    ControlLayer *_conLayer;
 };
 
 #endif /* defined(__TankWar__GameSence__) */

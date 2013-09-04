@@ -30,6 +30,8 @@ typedef enum {
     kPause
 }TankAction;
 
+class MapLayer;
+
 class TankSprite : public cocos2d::CCSprite{
 public:
     CREATE_FUNC(TankSprite);
@@ -47,7 +49,37 @@ public:
      *	@return	初始化后的tank
      */
     static TankSprite* initWithDelegate(int numLife, int tKind, cocos2d::CCSize mSize);
+    
+    /**
+     *	@brief	tank向上移动
+     */
+    void moveUp();
 
+    /**
+     *	@brief	tank向下移动
+     */
+    void moveDown();
+
+    /**
+     *	@brief	tank向左移动
+     */
+    void moveLeft();
+
+    /**
+     *	@brief	tank向右移动
+     */
+    void moveRight();
+
+    /**
+     *	@brief	检测tank移动后的坐标是否合法
+     *
+     *	@param 	pon 	tank移动后的坐标
+     *
+     *	@return	坐标是否合法
+     */
+    bool checkPoint(CCPoint pon);
+    
+    MapLayer* _mapLayer;
 private:
     // tank移动速度
     int _speed;
@@ -59,5 +91,6 @@ private:
     TankKind _kind;
     //  tank移动方向
     TankAction _kAction;
+
 };
 #endif /* defined(__TankWar__TankSprite__) */
