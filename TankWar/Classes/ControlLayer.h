@@ -13,6 +13,8 @@
 #include "cocos2d.h"
 #include "SneakyJoystick.h"
 #include "SneakyJoystickSkinnedBase.h"
+#include "SneakyButton.h"
+#include "SneakyButtonSkinnedBase.h"
 #include "MapLayer.h"
 #include "TankSprite.h"
 
@@ -23,10 +25,13 @@ public:
     virtual bool init();
 
     MapLayer *_mapLayer;
-private:
+protected:
     SneakyJoystick* _joystick;
+    SneakyButton* _fireButton;
+    
     void addJoystick(void);
     void update(float t);
+    void addFireButton(void);
 };
 
 #endif /* defined(__TankWar__ControlLayer__) */

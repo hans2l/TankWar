@@ -65,7 +65,7 @@ public:
     int tileIDFromPosition(CCPoint pos);
 
     TankSprite *_tank1;
-private:
+protected:
     int _leve;
     
     cocos2d::CCTMXLayer* _bg1Layer;

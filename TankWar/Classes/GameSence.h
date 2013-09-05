@@ -22,9 +22,20 @@ public:
     ~GameScene();
     
     bool init();
+    
+    void initWithMapInformation(int leve,int status ,int life);
+    
+    void showLife(int numLife);
+    
+    void showLeve(int inLeve);
+    
 private:
     MapLayer *_mapLayer;
     ControlLayer *_conLayer;
+    
+    CCLabelTTF* _1plifeString;
+    CCLabelTTF* _leveString;
+    CCLabelTTF* _robotLifeString;
 };
 
 #endif /* defined(__TankWar__GameSence__) */

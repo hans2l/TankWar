@@ -79,8 +79,17 @@ public:
      */
     bool checkPoint(CCPoint pon);
     
+    void onFire(void);
+    
+    void fire(CCSprite *buttle, TankAction buttleOrientation);
+    
+    void makeCanFire(void);
+    
+    //CC_SYNTHESIZE(MapLayer*, _mapLayer, MapLayer);
+    //CC_SYNTHESIZE(CCTMXTiledMap*, _map, Map);
     MapLayer* _mapLayer;
-private:
+    CCTMXTiledMap* _map;
+protected:
     // tank移动速度
     int _speed;
     // tank生命值
@@ -89,8 +98,11 @@ private:
     cocos2d::CCSize _mapSize;
     // tank类型
     TankKind _kind;
-    //  tank移动方向
+    // tank移动方向
     TankAction _kAction;
-
+    //  tank能否发射子弹
+    bool _isCanFire;
+    // 子弹方向
+    int _buttleOrientaion;
 };
 #endif /* defined(__TankWar__TankSprite__) */

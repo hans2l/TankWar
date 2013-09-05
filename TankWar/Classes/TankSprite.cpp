@@ -48,6 +48,7 @@ TankSprite* TankSprite::initWithDelegate(int numLife, int tKind, cocos2d::CCSize
     tank->setScale(0.7);
     // 方向默认向上
     tank->_kAction = kUp;
+    tank->_isCanFire = true;
     
     return tank;
 }
@@ -179,8 +180,6 @@ void TankSprite::moveRight()
     this->setPosition(ccp(this->getPosition().x+_speed, this->getPosition().y));
 }
 
-
-//检测坐标点
 bool TankSprite::checkPoint(CCPoint pon)
 {
     
@@ -188,8 +187,104 @@ bool TankSprite::checkPoint(CCPoint pon)
     unsigned int tid;
     
     tid = _mapLayer->tileIDFromPosition(tnp);
-    
+    CCLog("%d!!!", tid);
     if (tid != 0 && tid != 9 && tid != 10 && tid != 37 && tid != 38 ) return true;
     
     return false;
+}
+
+void TankSprite::onFire()
+{
+    if (_life == 0) {
+        return;
+    }
+    //CCLog("%d!!", _isCanFire);
+    if (_kind == kBorn||_kind == kPlusStarOne) {
+        if (_isCanFire == false) {
+            return;
+        }
+        // 子弹方向即坦克方向
+        _buttleOrientaion = _kAction;
+        
+        CCSprite *buttle = CCSprite::createWithSpriteFrameName("bullet.png");
+        _map->addChild(buttle, -1);
+        //CCLog("Build a buttle!");
+    
+        // 隐藏
+        buttle->setVisible(false);
+        _isCanFire = false;
+        
+        this->fire(buttle, (TankAction)_buttleOrientaion);
+    }
+}
+
+void TankSprite::fire(CCSprite *buttle, TankAction buttleOrientation)
+{
+    CCPoint ptn;
+    switch (buttleOrientation) {
+        case kUp:
+            
+            CCLOG("%f",this->getPosition().x);
+            
+            buttle->setRotation(0);
+            
+            buttle->setPosition(ccp(this->getPosition().x, this->getPosition().y+this->boundingBox().size.height/2));
+            
+            //终点
+            ptn=ccp(this->getPosition().x, this->getPosition().y+_mapSize.width);
+            
+            break;
+        case kDown:
+            
+            buttle->setRotation(180);
+            
+            buttle->setPosition(ccp(this->getPosition().x, this->getPosition().y-this->boundingBox().size.height/2));
+            
+            
+            ptn=ccp(this->getPosition().x, this->getPosition().y-_mapSize.width);
+            
+            break;
+        case kRight:
+            
+            buttle->setRotation(90);
+            
+            buttle->setPosition(ccp(this->getPosition().x+this->boundingBox().size.width/2, this->getPosition().y));
+            
+            
+            ptn=ccp(this->getPosition().x+_mapSize.width, this->getPosition().y);
+            
+            break;
+        case kLeft:
+            
+            buttle->setRotation(-90);
+            
+            buttle->setPosition(ccp(this->getPosition().x-this->boundingBox().size.width/2, this->getPosition().y));
+            
+            
+            ptn=ccp(this->getPosition().x-_mapSize.width, this->getPosition().y);
+            
+            break;
+            
+            
+        default:
+            break;
+    }
+    
+    const CCPoint realyPosition = ptn;
+    
+    // 创建子弹移动动画
+    // Show子弹
+    CCShow *ac1=CCShow::create();
+    // 子弹移动到边界
+    CCMoveTo *ac2=CCMoveTo::create(2.0, realyPosition);
+    
+    CCFiniteTimeAction *seq=CCSequence::create(ac1,ac2,CCCallFunc::create(this, callfunc_selector(TankSprite::makeCanFire)),NULL);
+    
+    buttle->runAction(seq);
+}
+
+void TankSprite::makeCanFire()
+{
+    CCLog("I can Fire!!!");
+    _isCanFire = true;
 }

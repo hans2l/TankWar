@@ -45,20 +45,26 @@ void MapLayer::initWithMap(int leve, int tKind, int numLife)
     map->setScale(scale);
     
     // 将地图向右平移屏幕宽度的1/6
-    map->setPosition(wSize.width / 6, 0);
-    CCLog("MapPosition: %f, %f", map->getPositionX(), map->getPositionY());
+    //map->setPosition(wSize.width / 6, 0);
+    //CCLog("MapPosition: %f, %f", map->getPositionX(), map->getPositionY());
     
-    addChild(map, 1);
+    this->addChild(map, 1);
     
     // 从地图中获取地图层
     _bg1Layer = map->layerNamed("bg1");
+    //_bg2Layer = map->layerNamed("bg2");
+    // 将层2隐藏起来
+    //_bg2Layer->setVisible(false);
     
     // 从地图中获取对象层
     _objects = map->objectGroupNamed("objects");
     
     // 创建玩家坦克
     _tank1 = TankSprite::initWithDelegate(numLife, tKind, _bg1Layer->getContentSize());
+    //_tank1->setMapLayer(this);
+    //_tank1->setMap(map);
     _tank1->_mapLayer = this;
+    _tank1->_map = map;
     
     // 设置玩家坦克坐标
     CCPoint tankPoint = this->objectPosition(_objects, "pl1");
@@ -98,5 +104,6 @@ int MapLayer::tileIDFromPosition(CCPoint pos)
     if (cpt.y < 0) return -1;
     if (cpt.x >= _bg1Layer->getLayerSize().width) return -1;
     if (cpt.y >= _bg1Layer->getLayerSize().height) return -1;
+    CCLog("%f %f", cpt.x, cpt.y);
     return _bg1Layer->tileGIDAt(cpt);
 }

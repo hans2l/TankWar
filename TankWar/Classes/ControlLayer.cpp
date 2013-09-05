@@ -20,7 +20,7 @@ bool ControlLayer::init()
         
         // 自添加代码
         this->addJoystick();
-        
+        this->addFireButton();
         // 调用系统的刷新函数
         this->scheduleUpdate();
         
@@ -83,6 +83,12 @@ void ControlLayer::update(float t)
     // getVelocity()到的值很小，需要放大
     CCPoint poi = ccpMult(_joystick->getVelocity(), 50);
     
+    // 判断开火按钮是否被按下
+    if (_fireButton->getIsActive()) {
+        CCLog("Fire!");
+        tank->onFire();
+    }
+    
     //right
     if ((poi.x  >  0)  && (poi.x - poi.y) >0 && (poi.x + poi.y) > 0){
         tank->moveRight();
@@ -101,4 +107,35 @@ void ControlLayer::update(float t)
     else if ((poi.y < 0) &&(poi.y - poi.x) < 0 && (poi.y + poi.x) < 0) {
         tank->moveDown();
     }
+}
+
+void ControlLayer::addFireButton()
+{
+    //float buttonRadius = 80;
+    CCSize wSize = CCDirector::sharedDirector()->getWinSize();
+    
+    _fireButton = new SneakyButton();
+    _fireButton->initWithRect(CCRectZero);
+    _fireButton->autorelease();
+    _fireButton->setIsHoldable(true);
+    _fireButton->setIsToggleable(true);
+    
+    SneakyButtonSkinnedBase *skinFireButton = new SneakyButtonSkinnedBase();
+    skinFireButton->autorelease();
+    skinFireButton->init();
+    
+    CCSprite *normalSprite = CCSprite::create("images/fire_button_default.png");
+    normalSprite->setOpacity(100);
+    
+    CCSprite *pressedSprite = CCSprite::create("images/fire_button_press.png");
+    pressedSprite->setOpacity(100);
+    
+    skinFireButton->setPosition(ccp(wSize.width-80, 0));
+    skinFireButton->setDefaultSprite(normalSprite);
+    skinFireButton->setPressSprite(pressedSprite);
+    skinFireButton->setActivatedSprite(CCSprite::create("images/fire_button_press.png"));
+    skinFireButton->setScale(0.5);
+    skinFireButton->setButton(_fireButton);
+    
+    this->addChild(skinFireButton);
 }
