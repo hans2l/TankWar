@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "TankSprite::checkBang(float):TankSprite.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "cocos2d::CCArray::count():CCArray.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MapLayer::initEnemys():MapLayer.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "enemyKind">
+            </PersistentString>
+            <PersistentString
+               value = "_enemyArray">
+            </PersistentString>
+            <PersistentString
+               value = "_aiDic">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MapLayer::initAIPlistFile():MapLayer.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "_leve">
+            </PersistentString>
+            <PersistentString
+               value = "_aiDic">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "EnemySprite::initWithKind(int):EnemySprite.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "Kind">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TankSprite::checkHome():TankSprite.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "_isHomeDone">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

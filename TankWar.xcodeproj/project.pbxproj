@@ -212,6 +212,9 @@
 		CEA8B8A117D6EEC400C84344 /* maps in Resources */ = {isa = PBXBuildFile; fileRef = CEA8B8A017D6EEC400C84344 /* maps */; };
 		CEA8B8A317D6EED100C84344 /* images in Resources */ = {isa = PBXBuildFile; fileRef = CEA8B8A217D6EED100C84344 /* images */; };
 		CEA8B8A617D6EFA800C84344 /* ControlLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEA8B8A417D6EFA800C84344 /* ControlLayer.cpp */; };
+		CEAA1A4A17DAB90D0063BE6C /* AI in Resources */ = {isa = PBXBuildFile; fileRef = CEAA1A4817DAB90D0063BE6C /* AI */; };
+		CEAA1A4B17DAB90D0063BE6C /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = CEAA1A4917DAB90D0063BE6C /* sounds */; };
+		CEAA1A5117DAE0080063BE6C /* EnemySprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEAA1A4F17DAE0080063BE6C /* EnemySprite.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -662,6 +665,10 @@
 		CEA8B8A217D6EED100C84344 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = Resources/images; sourceTree = "<group>"; };
 		CEA8B8A417D6EFA800C84344 /* ControlLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ControlLayer.cpp; path = Classes/ControlLayer.cpp; sourceTree = "<group>"; };
 		CEA8B8A517D6EFA800C84344 /* ControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlLayer.h; path = Classes/ControlLayer.h; sourceTree = "<group>"; };
+		CEAA1A4817DAB90D0063BE6C /* AI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AI; path = Resources/AI; sourceTree = "<group>"; };
+		CEAA1A4917DAB90D0063BE6C /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sounds; path = Resources/sounds; sourceTree = "<group>"; };
+		CEAA1A4F17DAE0080063BE6C /* EnemySprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EnemySprite.cpp; path = Classes/EnemySprite.cpp; sourceTree = "<group>"; };
+		CEAA1A5017DAE0080063BE6C /* EnemySprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnemySprite.h; path = Classes/EnemySprite.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -746,6 +753,8 @@
 		CE95360317D58A9F00E91E51 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CEAA1A4817DAB90D0063BE6C /* AI */,
+				CEAA1A4917DAB90D0063BE6C /* sounds */,
 				CEA8B8A217D6EED100C84344 /* images */,
 				CEA8B8A017D6EEC400C84344 /* maps */,
 				CE95360417D58A9F00E91E51 /* CloseNormal.png */,
@@ -1573,6 +1582,8 @@
 				CE95392D17D6155700E91E51 /* TankSprite.h */,
 				CEA8B8A417D6EFA800C84344 /* ControlLayer.cpp */,
 				CEA8B8A517D6EFA800C84344 /* ControlLayer.h */,
+				CEAA1A4F17DAE0080063BE6C /* EnemySprite.cpp */,
+				CEAA1A5017DAE0080063BE6C /* EnemySprite.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1641,6 +1652,8 @@
 				CE9536AB17D58AA000E91E51 /* ChangeLog in Resources */,
 				CEA8B8A117D6EEC400C84344 /* maps in Resources */,
 				CEA8B8A317D6EED100C84344 /* images in Resources */,
+				CEAA1A4A17DAB90D0063BE6C /* AI in Resources */,
+				CEAA1A4B17DAB90D0063BE6C /* sounds in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1833,6 +1846,7 @@
 				CE452FD717D71DAF0042AEFC /* SneakyButtonSkinnedBase.cpp in Sources */,
 				CE452FD817D71DAF0042AEFC /* SneakyJoystick.cpp in Sources */,
 				CE452FD917D71DAF0042AEFC /* SneakyJoystickSkinnedBase.cpp in Sources */,
+				CEAA1A5117DAE0080063BE6C /* EnemySprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

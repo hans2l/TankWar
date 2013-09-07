@@ -20,7 +20,7 @@ bool GameScene::init()
         
         // 自添加代码
         
-        this->initWithMapInformation(1, 1, 1);
+        this->initWithMapInformation(3, 1, 1);
         
         _conLayer = ControlLayer::create();
         _conLayer->_mapLayer = _mapLayer;

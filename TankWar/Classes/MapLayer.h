@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 
 #include "TankSprite.h"
+#include "EnemySprite.h"
 
 USING_NS_CC;
 
@@ -63,17 +64,51 @@ public:
      *  @return others  该地图坐标在地图上
      */
     int tileIDFromPosition(CCPoint pos);
+    
+    void destpryTile(CCPoint pos);
+    
+    void initAIPlistFile();
 
+    void initEnemys();
+    
+    void gotoScoreScene();
+    
+    void gameOver();
     TankSprite *_tank1;
 protected:
-    int _leve;
-    
     cocos2d::CCTMXLayer* _bg1Layer;
-    //cocos2d::CCTMXLayer* _bg2Layer;
+    cocos2d::CCTMXLayer* _bg2Layer;
+    CCTMXTiledMap *_map;
     
-    cocos2d::CCTMXObjectGroup* _objects;
+    CCSprite* _home;
+    CCRect _homeRect;
     
-    CCTMXTiledMap *map;
+    CCDictionary* _remoteSpheres;
     
+    int _enemyNum;
+    
+    CCArray* _enemyArray;
+    CCArray* _toolArray;
+    CCTMXObjectGroup* _objects;
+    CCDictionary* _aiDic;
+    
+    
+    int _slowTankCount;
+    int _quikeTankCount;
+    int _strongTankCount;
+    
+    int _rodamPoint;
+    CCArray* _pointArray;
+    CCPoint _tmpPoint;
+    CCArray* _propArray;
+    
+    int _slow;
+    int _quike;
+    int _strong;
+    int _strongYe;
+    int _strongG;
+    int _leve;
+    int _bornNum;
+    bool _isGameOver;
 };
 #endif /* defined(__TankWar__MapLayer__) */

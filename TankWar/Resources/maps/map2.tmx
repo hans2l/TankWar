@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="52" height="52" tilewidth="8" tileheight="8">
  <tileset firstgid="1" name="tile" tilewidth="8" tileheight="8">
-  <image source="tile.png" width="224" height="32"/>
+  <image source="tile.png" trans="000000" width="224" height="32"/>
  </tileset>
  <layer name="bg1" width="52" height="52">
   <data encoding="base64" compression="zlib">
-   eJzNWkduxEAM2/T6hfT6hdRN+0J6/f8rwosvhA0OIXnGBHiwFcsClgRtxbOZhxVwFVwD181rp4gD8BA8Ao8bz5KBG/AWnIN3bUdJwTv4AX6CX41nKcECuAgugcs99ah/VP9onbED7oJ74H5PPeof1T9aZ1yAl+AVeN1Tj/pH9Y/WGc/gC/gKvvXUo/5R/aN1hqtPt5/rD/Zrtn9ccD/XH+zXbP+44H6uP9iv2f5xwf1cf7Bfs+fL9hej9vNhtr8YtZ8Ps/3FqP18mK1fRjTfNsBNcAvcLvh71z+uH7g/z6fy6QQ8Bc/A84L7uf5x/cD9eT6VT/fgA/gIPhXcz/WP6wfuz/OpfPoGf8Bf8K/gfq5/XD9wf55P5RPr0/UTI9tf7jysT9dPjGx/ufOwPl0/MbL95c7D+nT9xMj2V3Qe9b6i8kEdu3mk8kdBva+ofFDHbh6p/FFQ7ysqH9Sxm0cqfxTU+4rKB3Xs5pHKnyhY/66+a+/fFFj/rr5r798UWP+uvmvv3xRY/66+x667+y2VH2PrX13v7rdUfoytf3W9u99S+TG2/tX17n5L5Uf2/jl6fXY+TH1/7danvr9261PfX7v11vvr1v7JRmv/ZKO1f7LR2j/ZqK1v9/6t/3/qovb3B6XgXC/d69T+/qAUnOule53a3x+U6rf7PUrPD/WP5leWfrvfo/T8UP9ofmXpt3vuKj0/1D+aX1n67Z67Ss8P9Xfz6x/S2clh
+   eJztmO0KwjAMRaegoO+goKDv/4j2Z3dhvbtL+jGXAyWw0qzmzFA6TRqXNK5ZVLGu9+aVxjuLrdd7E35816uc0jhnEbHWl+W3ziOPNJ5ZRKz1Zfmt80j40RjNjwrmU+uP34O3HxXMp9Yfv4fw819+GN7+kNbnB+/6IKOdH6yEnzm3NO5ZZKh+1Hpjftwf63+fNL5ZZKh+1Hpjftwf63/hZ19+VF+Itz91P/j7VV+Itz91P+GnTG8/CDsPs/7DotrvWH9jsPMw6z8sqv2O9TdG+BnbDwPrq9av9f0OA+ur1q/1/Q4j/MypPa/en7D+VLu+bL16f8L6U+3vP/zs2w/i3X9Gvx9V53vfj4af8vzR/XjT24834ac8P7qf3u/37m+18T5fePnZ+r8Z1c/W/01rP2qd1z5fym/tj171YevXvt/aH8NPOc/a50v5VT8/kOhNCQ==
   </data>
  </layer>
- <objectgroup name="objects" width="52" height="52" visible="0">
+ <layer name="bg2" width="52" height="52">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJACAQA0Ab3UP3H1IX8LEQ8eEOQiBtSgEAAAAAAAAAAOClutKCzqavjKCz2f2Q/Z/T/Xf+uWMCZ9oCcQ==
+  </data>
+ </layer>
+ <objectgroup name="objects" width="52" height="52">
   <object name="pl1" x="136" y="384" width="24" height="24"/>
   <object name="en1" x="4" y="4" width="24" height="24"/>
   <object name="en2" x="200" y="0" width="24" height="24"/>
@@ -25,9 +30,4 @@
   <object name="t10" x="4" y="356" width="24" height="24"/>
   <object name="home" x="192" y="384" width="32" height="32"/>
  </objectgroup>
- <layer name="bg2" width="52" height="52" visible="0">
-  <data encoding="base64" compression="zlib">
-   eJzt0bkNgDAQRUESjjY42oA+oP9C2MSZA1tCyJZmpBfsT3cYAAAAAAAAAAAA+NMYTdEcLZm7N2u0RXt0ZO7epH+U7q1L/yjdW3dGV8Xeujt6KvavvBhYBEE=
-  </data>
- </layer>
 </map>

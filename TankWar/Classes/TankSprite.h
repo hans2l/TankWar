@@ -30,6 +30,21 @@ typedef enum {
     kPause
 }TankAction;
 
+typedef enum {
+    
+    kP1 = 0,
+    kSlow,
+    kQuike,
+    kStrong,
+    kStrongYellow,
+    kStrongRed,
+    kStrongRedLife3,
+    kStrongGreen,
+    kQuikeR,
+    kSlowR,
+    
+}EnemyKind;
+
 class MapLayer;
 
 class TankSprite : public cocos2d::CCSprite{
@@ -85,24 +100,53 @@ public:
     
     void makeCanFire(void);
     
+    void checkBang(float dt);
+    
+    bool checkLayer2();
+    
+    bool checkHome();
+    
+    bool checkWall();
+    
+    bool checkStrongWall();
+    
+    void gameOver();
     //CC_SYNTHESIZE(MapLayer*, _mapLayer, MapLayer);
     //CC_SYNTHESIZE(CCTMXTiledMap*, _map, Map);
     MapLayer* _mapLayer;
     CCTMXTiledMap* _map;
+    
+    //
+    CCRect homeRect;
+    //
+    CCPoint bornPosition;
+    // 地图大小
+    cocos2d::CCSize _mapSize;
 protected:
     // tank移动速度
     int _speed;
     // tank生命值
     int _life;
-    // 地图大小
-    cocos2d::CCSize _mapSize;
     // tank类型
     TankKind _kind;
     // tank移动方向
     TankAction _kAction;
-    //  tank能否发射子弹
+    // tank能否发射子弹
     bool _isCanFire;
     // 子弹方向
-    int _buttleOrientaion;
+    int _buttleOrientation;
+    //  tank的第一颗buttle
+    CCSprite* _buttle;
+    
+    bool _isTankDone;
+    bool _isHomeDone;
+    bool _isHomeProtect;
+    bool _isRead;
+    bool _isProtect;
+    
+    int _enemyKindForScore;
+    EnemyKind _eKind;
+    
+    
 };
 #endif /* defined(__TankWar__TankSprite__) */
