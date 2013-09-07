@@ -17,7 +17,7 @@
          contextName = "MapLayer::initEnemys():MapLayer.cpp">
          <PersistentStrings>
             <PersistentString
-               value = "enemyKind">
+               value = "_enemyArray-&gt;count()">
             </PersistentString>
             <PersistentString
                value = "_enemyArray">

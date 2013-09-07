@@ -86,20 +86,28 @@ void MapLayer::initWithMap(int leve, int tKind, int numLife)
     // 每相隔2s，判断是否生成一辆敌方坦克或者进入下一关
     this->schedule(schedule_selector(MapLayer::initEnemys), 2);
     
-//    _rodamPoint = 10;
-//    _pointArray = CCArray::create();
-//    _propArray = CCArray::create();
-//    
-//    for (int i = 1; i <= _rodamPoint; i++) {
-//        CCPoint point = this->objectPosition(_objects, CCString::createWithFormat("t%d", i)->getCString());
-//        //_pointArray->addObject()
-//    }
+    _rodamPoint = 10;
+    _pointArray = new CCArray();
+    _pointArray->retain();
+    _propArray = new CCArray();
+    _propArray->retain();
+    
+    for (int i = 1; i <= _rodamPoint; i++) {
+        CCPoint *pot = new CCPoint();
+        CCPoint point = this->objectPosition(_objects, CCString::createWithFormat("t%d", i)->getCString());
+        pot->x = point.x;
+        pot->y = point.y;
+        _pointArray->addObject(pot);
+    }
 }
 
 CCPoint MapLayer::objectPosition(CCTMXObjectGroup *group,const char *object)
 {
     CCPoint point;
     CCDictionary *dic=group->objectNamed(object);
+    if (dic == NULL) {
+        return ccp(0, 0);
+    }
     point.x=dic->valueForKey("x")->intValue();
     point.y=dic->valueForKey("y")->intValue();
     return point;
@@ -148,14 +156,15 @@ void MapLayer::initAIPlistFile()
 
 void MapLayer::initEnemys()
 {
+    // 如果已产生并都被消灭了20辆敌方坦克，则进入下一关
     if (_enemyNum > 20 && _enemyArray->count() == 0) {
         this->unschedule(schedule_selector(MapLayer::initEnemys));
         this->scheduleOnce(schedule_selector(MapLayer::gotoScoreScene), 3);
     }
-    
+    // 已产生了20辆敌方坦克，并还未被团灭，也不会再产生坦克
     if(_enemyNum > 20) return;
-    // 
-    //if(_enemyArray->data && _enemyArray->count() >= 4) return;
+    // 屏幕上已有4辆敌方坦克，延迟敌方坦克的生成
+    if(_enemyArray->count() >= 4) return;
     
     // 获取坦克类型
     int enemyKind =(_aiDic->valueForKey(CCString::createWithFormat("%d", _enemyNum++)->getCString()))->intValue();
@@ -167,6 +176,7 @@ void MapLayer::initEnemys()
     enemy->_tank = _tank1;
     enemy->homeRect = _homeRect;
     
+    // 每辆敌方坦克循环地出现在屏幕上方的3个位置
     if (_bornNum == 3) {
         _bornNum = 0;
     }

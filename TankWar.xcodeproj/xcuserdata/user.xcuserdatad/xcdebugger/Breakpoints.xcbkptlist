@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TankWar/Classes/MapLayer.cpp"
-         timestampString = "400249786.461463"
+         timestampString = "400252458.258275"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "150"
-         endingLineNumber = "150"
+         startingLineNumber = "158"
+         endingLineNumber = "158"
          landmarkName = "MapLayer::initEnemys()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TankWar/Classes/MapLayer.cpp"
-         timestampString = "400249786.461463"
+         timestampString = "400252458.258275"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "151"
-         endingLineNumber = "151"
+         startingLineNumber = "160"
+         endingLineNumber = "160"
          landmarkName = "MapLayer::initEnemys()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TankWar/Classes/MapLayer.cpp"
-         timestampString = "400249786.461463"
+         timestampString = "400252458.258275"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "162"
-         endingLineNumber = "162"
+         startingLineNumber = "171"
+         endingLineNumber = "171"
+         landmarkName = "MapLayer::initEnemys()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TankWar/Classes/MapLayer.cpp"
+         timestampString = "400252458.258275"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "167"
+         endingLineNumber = "167"
          landmarkName = "MapLayer::initEnemys()"
          landmarkType = "5">
       </FileBreakpoint>

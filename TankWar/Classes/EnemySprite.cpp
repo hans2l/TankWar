@@ -143,7 +143,7 @@ EnemySprite* EnemySprite::initWithKind(int Kind)
     enemy->_kAction = kDown;
     enemy->_isCanFire = true;
     //enemy->animationBorn();
-    //[tank scheduleOnce:@selector(initAction) delay:1];
+    enemy->scheduleOnce(schedule_selector(EnemySprite::initAction), 1);
     return enemy;
 }
 
@@ -161,4 +161,24 @@ void EnemySprite::removeSelfFromMap()
 void EnemySprite::checkTank(CCSprite* buttle)
 {
     
+}
+
+void EnemySprite::initAction()
+{
+    this->unschedule(schedule_selector(EnemySprite::initAction));
+    this->schedule(schedule_selector(EnemySprite::doRandomAction), 1);
+    this->schedule(schedule_selector(EnemySprite::KeepMove), 1/30);
+    this->schedule(schedule_selector(EnemySprite::rodmoFire), 1);
+}
+
+void EnemySprite::doRandomAction()
+{
+}
+
+void EnemySprite::KeepMove()
+{
+}
+
+void EnemySprite::rodmoFire()
+{
 }
