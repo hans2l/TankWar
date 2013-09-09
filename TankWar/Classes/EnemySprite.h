@@ -25,12 +25,19 @@ public:
     
     void stopTankAction();
     void removeSelfFromMap();
-    void checkTank(CCSprite* buttle);
+    bool checkTank();
     
     void initAction();
     void doRandomAction();
     void KeepMove();
     void rodmoFire();
+    
+    void onFire();
+    void fire(CCSprite* buttle, TankAction buttleOrientation);
+    
+    void makeCanFire();
+    
+    void checkBang();
     TankSprite* _tank;
 protected:
     int _score;

@@ -11,6 +11,8 @@
 
 #include <iostream>
 #include "cocos2d.h"
+#import "SimpleAudioEngine.h"
+
 USING_NS_CC;
 
 typedef enum {
@@ -46,6 +48,7 @@ typedef enum {
 }EnemyKind;
 
 class MapLayer;
+class EnemySprite;
 
 class TankSprite : public cocos2d::CCSprite{
 public:
@@ -110,7 +113,25 @@ public:
     
     bool checkStrongWall();
     
-    void gameOver();
+    void bornInformation();
+    
+    void animationBorn();
+    
+    void animationShield();
+    
+    void removeShield();
+    
+    void shieldAnimation();
+    
+    bool checkTankPosition();
+    
+    void canFire2();
+    
+    void checkEnemyKind(EnemySprite* aTank);
+    
+    void animationBang();
+    
+    bool checkBound();
     //CC_SYNTHESIZE(MapLayer*, _mapLayer, MapLayer);
     //CC_SYNTHESIZE(CCTMXTiledMap*, _map, Map);
     MapLayer* _mapLayer;
@@ -122,7 +143,7 @@ public:
     CCPoint bornPosition;
     // 地图大小
     cocos2d::CCSize _mapSize;
-protected:
+public:
     // tank移动速度
     int _speed;
     // tank生命值
@@ -147,6 +168,10 @@ protected:
     int _enemyKindForScore;
     EnemyKind _eKind;
     
+    CCArray* _enemyArray;
     
+    int _buttleCount;
+    bool _isButtleDone;
+    TankSprite* _tmpTank;
 };
 #endif /* defined(__TankWar__TankSprite__) */

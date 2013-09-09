@@ -85,7 +85,7 @@ void ControlLayer::update(float t)
     
     // 判断开火按钮是否被按下
     if (_fireButton->getIsActive()) {
-        CCLog("Fire!");
+        //CCLog("Fire!");
         tank->onFire();
     }
     

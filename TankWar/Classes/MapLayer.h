@@ -74,8 +74,13 @@ public:
     void gotoScoreScene();
     
     void gameOver();
+    
+    void removeSprite(TankSprite* aTank);
+    
+    void removeSelfFromMap();
+    
     TankSprite *_tank1;
-protected:
+public:
     cocos2d::CCTMXLayer* _bg1Layer;
     cocos2d::CCTMXLayer* _bg2Layer;
     CCTMXTiledMap *_map;
@@ -110,5 +115,7 @@ protected:
     int _leve;
     int _bornNum;
     bool _isGameOver;
+    
+    EnemySprite* _tTank;
 };
 #endif /* defined(__TankWar__MapLayer__) */

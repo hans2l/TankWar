@@ -3,27 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "TankSprite::checkBang(float):TankSprite.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "cocos2d::CCArray::count():CCArray.cpp">
+         contextName = "TankSprite::checkHome():TankSprite.cpp">
          <PersistentStrings>
             <PersistentString
-               value = "data">
+               value = "_isHomeDone">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "MapLayer::initEnemys():MapLayer.cpp">
+         contextName = "EnemySprite::initWithKind(int):EnemySprite.cpp">
          <PersistentStrings>
             <PersistentString
-               value = "_enemyArray-&gt;count()">
-            </PersistentString>
-            <PersistentString
-               value = "_enemyArray">
-            </PersistentString>
-            <PersistentString
-               value = "_aiDic">
+               value = "Kind">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -39,18 +30,66 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "EnemySprite::initWithKind(int):EnemySprite.cpp">
+         contextName = "EnemySprite::onFire():EnemySprite.cpp">
          <PersistentStrings>
             <PersistentString
-               value = "Kind">
+               value = "_map">
+            </PersistentString>
+            <PersistentString
+               value = "_kAction">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "TankSprite::checkHome():TankSprite.cpp">
+         contextName = "cocos2d::CCArray::count():CCArray.cpp">
          <PersistentStrings>
             <PersistentString
-               value = "_isHomeDone">
+               value = "data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "cocos2d::CCCopying::copyWithZone(cocos2d::CCZone*):CCObject.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "cocos2d::CCTimer::update(float):CCScheduler.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "m_pTarget">
+            </PersistentString>
+            <PersistentString
+               value = "m_pfnSelector">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "cocos2d::CCAnimation::initWithAnimationFrames(cocos2d::CCArray*, float, unsigned int):CCAnimation.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "cocos2d::CCAnimation::create(cocos2d::CCArray*, float):CCAnimation.h">
+      </ContextState>
+      <ContextState
+         contextName = "TankSprite::animationBang():TankSprite.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "TankSprite::checkBang(float):TankSprite.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "_buttle">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MapLayer::initEnemys():MapLayer.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "_enemyArray-&gt;count()">
+            </PersistentString>
+            <PersistentString
+               value = "_enemyArray">
+            </PersistentString>
+            <PersistentString
+               value = "_aiDic">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -82,6 +82,7 @@ void MapLayer::initWithMap(int leve, int tKind, int numLife)
     _enemyArray = new CCArray();
     _enemyArray->retain();
     
+    // 从Plist文件中读取敌方坦克数据
     this->initAIPlistFile();
     // 每相隔2s，判断是否生成一辆敌方坦克或者进入下一关
     this->schedule(schedule_selector(MapLayer::initEnemys), 2);
@@ -172,6 +173,7 @@ void MapLayer::initEnemys()
     // 依据坦克类型初始化坦克
     EnemySprite* enemy = EnemySprite::initWithKind(enemyKind);
     enemy->_mapSize = _bg1Layer->getContentSize();
+    enemy->_map = _map;
     enemy->_mapLayer = this;
     enemy->_tank = _tank1;
     enemy->homeRect = _homeRect;
@@ -222,5 +224,44 @@ void MapLayer::gameOver()
     CCTexture2D *newTexture = CCTextureCache::sharedTextureCache()->addUIImage(image, NULL);
     _home->setTexture(newTexture);
     
+    CCSprite* gameSprite = CCSprite::create("images/gamedone.png");
+    gameSprite->setScale(8.0f);
+    gameSprite->setPosition(ccp(_bg1Layer->getContentSize().width/2,-10));
+    CCPoint overPoint = ccp(_bg1Layer->getContentSize().width/2,_bg1Layer->getContentSize().height/2);
+    _map->addChild(gameSprite, 2);
     
+    CCAction* ac1 = CCMoveTo::create(4.0, overPoint);
+    gameSprite->runAction(ac1);
+    
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sounds/gameover.aif");
+    
+    //[self schedule:@selector(retunMainScene) interval:5];
+    _isGameOver = true;
+}
+
+void MapLayer::removeSprite(TankSprite* aTank)
+{
+    EnemySprite* tank = (EnemySprite *)aTank;
+    
+    if (tank->_enemyKindForScore == kSlow || tank->_enemyKindForScore == kSlowR) {
+        _slow++;
+    }else if (tank->_enemyKindForScore == kQuike || tank->_enemyKindForScore == kQuikeR){
+        _quike++;
+    }else if (tank->_enemyKindForScore == kStrong || tank->_enemyKindForScore == kStrongRed){
+        _strong++;
+    }else if (tank->_enemyKindForScore == kStrongYellow){
+        _strongYe++;
+    }else if (tank->_enemyKindForScore == kStrongRedLife3 || tank->_enemyKindForScore == kStrongGreen) {
+        _strongG++;
+    }
+    
+    _enemyArray->removeObject(tank);
+    tank->stopTankAction();
+    _tTank = tank;
+    tank->scheduleOnce(schedule_selector(MapLayer::removeSelfFromMap), 0.3);
+}
+
+void MapLayer::removeSelfFromMap()
+{
+    _tTank->removeFromParentAndCleanup(true);
 }

@@ -8,7 +8,7 @@
 
 #include "TankSprite.h"
 #include "MapLayer.h"
-#import "SimpleAudioEngine.h"
+#include "EnemySprite.h"
 #define FRAME(image) CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(image)
 
 bool TankSprite::init()
@@ -27,17 +27,32 @@ bool TankSprite::init()
 
 TankSprite* TankSprite::initWithDelegate(int numLife, int tKind, cocos2d::CCSize mSize)
 {
+    CCSpriteFrame* frameKind;
     TankSprite *tank;
     
+    // 依据参数类型创建不同的玩家坦克
     switch (tKind) {
         case kBorn:
-            tank = (TankSprite*)CCSprite::create("images/tank.png");
+            frameKind = FRAME("p1.png");
+            tank = (TankSprite* )TankSprite::createWithSpriteFrame(frameKind);
             tank->_speed = 1;
             break;
             
         case kPlusStarOne:
+            frameKind = FRAME("p1-a.png");
+            tank = (TankSprite* )TankSprite::createWithSpriteFrame(frameKind);
+            tank->_speed = 1.5;
+            break;
+            
         case kPlusStarTwo:
+            frameKind = FRAME("p1-b.png");
+            tank = (TankSprite* )TankSprite::createWithSpriteFrame(frameKind);
+            tank->_speed = 1.5;
+            break;
         case kPlusStarThree:
+            frameKind = FRAME("p1-c.png");
+            tank = (TankSprite* )TankSprite::createWithSpriteFrame(frameKind);
+            tank->_speed = 1.5;
             break;
             
         default:
@@ -46,11 +61,16 @@ TankSprite* TankSprite::initWithDelegate(int numLife, int tKind, cocos2d::CCSize
     
     tank->_life = numLife;
     tank->_mapSize = mSize;
+    
     tank->_kind = (TankKind)tKind;
-    tank->setScale(0.7);
+    tank->setScale(0.7f);
+    
     // 方向默认向上
     tank->_kAction = kUp;
     tank->_isCanFire = true;
+    
+    // 布置出生场景
+    tank->bornInformation();
     
     return tank;
 }
@@ -84,6 +104,11 @@ void TankSprite::moveUp()
     tnp = ccp(tp.x + this->boundingBox().size.width/3,tp.y + this->boundingBox().size.height / 2 + _speed);
     if (this->checkPoint(tnp)) return;
     
+    if (this-> checkTankPosition()){
+        return;
+    }
+    
+    // this->checkTool();
     this->setPosition(ccp(this->getPosition().x, this->getPosition().y+_speed));
 }
 
@@ -116,9 +141,13 @@ void TankSprite::moveDown()
     tnp = ccp(tp.x + this->boundingBox().size.width/3,tp.y - this->boundingBox().size.height / 2 - _speed);
     if (this->checkPoint(tnp)) return;
     
+    if (this-> checkTankPosition()){
+        return;
+    }
+    
+    // this->checkTool();
     this->setPosition(ccp(this->getPosition().x, this->getPosition().y-_speed));
 }
-
 
 void TankSprite::moveLeft()
 {
@@ -148,9 +177,13 @@ void TankSprite::moveLeft()
     tnp = ccp(tp.x - this->boundingBox().size.width/2 - _speed,tp.y - this->boundingBox().size.height/3);
     if (this->checkPoint(tnp)) return;
     
+    if (this-> checkTankPosition()){
+        return;
+    }
+    
+    // this->checkTool();
     this->setPosition(ccp(this->getPosition().x-_speed, this->getPosition().y));
 }
-
 
 void TankSprite::moveRight()
 {
@@ -179,6 +212,11 @@ void TankSprite::moveRight()
     tnp = ccp(tp.x - this->boundingBox().size.width/2 + _speed,tp.y - this->boundingBox().size.height/3);
     if (this->checkPoint(tnp)) return;
     
+    if (this-> checkTankPosition()){
+        return;
+    }
+    
+    // this->checkTool();
     this->setPosition(ccp(this->getPosition().x+_speed, this->getPosition().y));
 }
 
@@ -189,9 +227,46 @@ bool TankSprite::checkPoint(CCPoint pon)
     unsigned int tid;
     
     tid = _mapLayer->tileIDFromPosition(tnp);
-    CCLog("%d!!!", tid);
+    //CCLog("%d!!!", tid);
     if (tid != 0 && tid != 9 && tid != 10 && tid != 37 && tid != 38 ) return true;
     
+    return false;
+}
+
+bool TankSprite::checkTankPosition()
+{
+    // 获取敌方坦克
+    CCArray* array = _mapLayer->_enemyArray;
+    
+    CCPoint point;
+    // 获取玩家坦克位置
+    CCPoint tp = this->getPosition();
+    
+    // 计算玩家坦克移动后的位置
+    if (_kAction == kUp){
+        point = ccp(tp.x,tp.y + this->boundingBox().size.height / 2 + _speed);
+    }else if (_kAction == kDown){
+        point = ccp(tp.x,tp.y - this->boundingBox().size.height / 2 - _speed);
+    }else if (_kAction == kLeft) {
+        point =  ccp(tp.x - this->boundingBox().size.width/2 - _speed,tp.y);
+    }else if (_kAction == kRight) {
+        point = ccp(tp.x + this->boundingBox().size.width/2 + _speed,tp.y);
+    }
+    
+    // 遍历敌方坦克是否发生碰撞
+    CCRect tankEnemy;
+    CCObject* pObj;
+    
+    CCARRAY_FOREACH(array, pObj){
+        EnemySprite* tank = (EnemySprite*)pObj;
+        tankEnemy = CCRectMake(tank->getPosition().x - tank->boundingBox().size.width/2,
+                               tank->getPosition().y - tank->boundingBox().size.height/2,
+                               tank->boundingBox().size.width,
+                               tank->boundingBox().size.height);
+        if (tankEnemy.containsPoint(point)){
+            return true;
+        }
+    }
     return false;
 }
 
@@ -202,7 +277,26 @@ void TankSprite::onFire()
     }
 
     CCSpriteFrame* frameButtle = FRAME("bullet.png");
-    if (_kind == kBorn) {
+    if (_kind == kPlusStarTwo || _kind == kPlusStarThree) {
+        
+        if (_buttleCount <= 2){
+            
+            _buttleOrientation = _kAction;     //子弹运行的方向
+            CCSprite *buttle = CCSprite::createWithSpriteFrame(frameButtle);
+            buttle->setVisible(false);
+            _map->addChild(buttle, -1);
+            this->fire(buttle, (TankAction)_buttleOrientation);
+            _buttleCount++;
+            // 延时1s
+            if (_buttleCount > 2){
+                this->scheduleOnce(schedule_selector(TankSprite::canFire2), 1);
+            }
+            
+        }else {
+            return;
+        }
+        
+    }else if (_kind == kBorn || _kind == kPlusStarOne) {
         if (_isCanFire == false) return;
         
         // 子弹方向即坦克方向
@@ -215,6 +309,7 @@ void TankSprite::onFire()
         buttle->setVisible(false);
         _isCanFire = false;
         
+        _buttle = buttle;
         this->fire(buttle, (TankAction)_buttleOrientation);
     }
 }
@@ -283,13 +378,11 @@ void TankSprite::fire(CCSprite *buttle, TankAction buttleOrientation)
     CCFiniteTimeAction *seq=CCSequence::create(ac1,ac2,CCCallFunc::create(this, callfunc_selector(TankSprite::makeCanFire)),NULL);
     buttle->runAction(seq);
     
-    _buttle = buttle;
     this->schedule(schedule_selector(TankSprite::checkBang), 1/60);
 }
 
 void TankSprite::makeCanFire()
 {
-    //CCLog("I can Fire!!!");
     _isCanFire = true;
 }
 
@@ -308,7 +401,71 @@ void TankSprite::checkBang(float dt)
         // 从移除地图层移出buttle
         _buttle->removeFromParentAndCleanup(true);
         _isCanFire = true;
-        _buttle = NULL;
+        //_buttle = NULL;
+        return;
+    }
+    
+    // 检测子弹与敌方坦克的碰撞
+    CCArray* enemys = new CCArray();
+    enemys = _mapLayer->_enemyArray;
+    CCRect buttleRect;
+    CCRect tankEnemy;
+    CCObject* pObj;
+    
+    //CCLOG("%d", _enemyArray->count());
+    CCARRAY_FOREACH(enemys, pObj){
+        EnemySprite* tank = (EnemySprite*)pObj;
+        // 获取子弹的空间
+        buttleRect = CCRectMake(_buttle->getPosition().x - _buttle->getContentSize().width/2,_buttle->getPosition().y - _buttle->getContentSize().height/2,_buttle->getContentSize().width,_buttle->getContentSize().height);
+        // 获取敌方坦克的空间
+        tankEnemy = CCRectMake(tank->getPosition().x - tank->boundingBox().size.width/2,tank->getPosition().y - tank->boundingBox().size.height/2,tank->boundingBox().size.width,tank->boundingBox().size.height);
+        
+        // 子弹已击中坦克的正中间
+        if (NULL != tank->_buttle){
+            if ( buttleRect.containsPoint(tank->getPosition())){
+                // 停止tank的碰撞检测定时器
+                this->unschedule(schedule_selector(TankSprite::checkBang));
+                // 从移除地图层移出buttle
+                _buttle->removeFromParentAndCleanup(true);
+                _isCanFire =
+                //_buttle = NULL;
+                // 标记敌方坦克被子弹击中
+                tank->_isButtleDone = true;
+                return;
+            }
+        }
+        
+        // 子弹击中坦克的车身
+        if ( tankEnemy.containsPoint(_buttle->getPosition())) {
+            // 停止tank的碰撞检测定时器
+            this->unschedule(schedule_selector(TankSprite::checkBang));
+            // 从移除地图层移出buttle
+            _buttle->removeFromParentAndCleanup(true);
+            _isCanFire = true;
+            //_buttle = NULL;
+            _tmpTank = tank;
+            
+            // 判断敌方坦克的类型
+            this->checkEnemyKind(tank);
+        }
+    }
+    
+    if (_isTankDone){
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("blast.aif");
+        _tmpTank->animationBang();
+        
+        _mapLayer->removeSprite(_tmpTank);
+        _isTankDone = false;
+        return;
+    }
+    
+    
+    if (checkBound()){
+        // 停止tank的碰撞检测定时器
+        this->unschedule(schedule_selector(TankSprite::checkBang));
+        // 从移除地图层移出buttle
+        _buttle->removeFromParentAndCleanup(true);
+        _isCanFire = true;
         return;
     }
 }
@@ -320,7 +477,6 @@ bool TankSprite::checkLayer2()
     // 如果基地被保护，则遇到保护层时直接移出buttle
     CCPoint btPoint = _buttle->getPosition();
     unsigned gid = _mapLayer->tileIDFromPosition(btPoint);
-    CCLOG("Gid:%d", gid);
     if (0 != gid) {
         return true;
     }
@@ -331,13 +487,13 @@ bool TankSprite::checkHome()
 {
     CCRect rc = homeRect;
     if (rc.containsPoint(_buttle->getPosition())) {
-        CCLOG("isHomeProtect:%d", _isHomeProtect);
+        //CCLOG("isHomeProtect:%d", _isHomeProtect);
         // 如果基地被保护的话，则直接移除buttle
         if (_isHomeProtect) return true;
         // 如果基地不被保护的话
         if (!_isHomeDone){
             _isHomeDone = true;
-            this->gameOver();
+            _mapLayer->gameOver();
         }
         return true;
     }
@@ -628,7 +784,201 @@ bool TankSprite::checkStrongWall()
     
 }
 
-void TankSprite::gameOver()
+void TankSprite::bornInformation()
 {
-    _mapLayer->gameOver();
+    // 出生动画
+    this->animationBorn();
+    // 保护层动画
+    this->scheduleOnce(schedule_selector(TankSprite::animationShield), 1/2);
+    this->scheduleOnce(schedule_selector(TankSprite::removeShield), 5);
+}
+
+void TankSprite::animationBorn()
+{
+    // 创建帧动画
+    CCArray* array = new CCArray();
+    array->retain();
+    
+    CCSpriteFrame* f1;
+    for (int i =1 ; i < 5; i++) {
+        CCString* name = CCString::createWithFormat("xing%1d.png",i);
+        f1 = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+        array->addObject(f1);
+    }
+    
+    CCAnimation* anim = CCAnimation::createWithSpriteFrames(array);
+    anim->setDelayPerUnit(0.2f);
+    anim->setRestoreOriginalFrame(true);
+    
+    CCAnimate *animate = CCAnimate::create(anim);
+    this->runAction(animate);
+    
+    array->removeAllObjects();
+}
+
+void TankSprite::animationShield()
+{
+    //
+    //this->unschedule(schedule_selector(TankSprite::shieldAnimation));
+    _isProtect = true;
+    
+    CCArray* array = CCArray::createWithCapacity(0);
+    CCSpriteFrame* f1;
+    for (int i = 1; i < 3; i++) {
+        CCString* name = CCString::createWithFormat("shield%1d.png", i);
+        f1 = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+        array->addObject(f1);
+    }
+    
+    CCAnimation* anim = CCAnimation::createWithSpriteFrames(array, 0.2);
+    CCAnimate* animate = CCAnimate::create(anim);
+    CCAction* action = CCRepeatForever::create(animate);
+    
+    CCSprite* backAn = CCSprite::create();
+    // 精灵出生时，坐标为0，0
+    backAn->setPosition(ccp(backAn->getPosition().x + this->getContentSize().width/2, backAn->getPosition().y + this->getContentSize().height/2));
+    backAn->runAction(action);
+    //将此执行动画的精灵加到坦克精灵上
+    this->addChild(backAn, 1, 1001);
+    
+    array->removeAllObjects();
+};
+
+void TankSprite::removeShield()
+{
+    CCSprite* backAnim = (CCSprite*) (this->getChildByTag(1001));
+    backAnim->removeFromParentAndCleanup(true);
+    _isProtect = false;
+}
+
+void TankSprite::canFire2()
+{
+    _buttleCount = 0;
+}
+
+void TankSprite::checkEnemyKind(EnemySprite* aTank)
+{
+    
+    CCSpriteFrame* frame;
+    switch (aTank->_kind) {
+            
+        case kSlow:
+            _isTankDone = true;
+            break;
+
+        case kQuike:
+            _isTankDone = true;
+            break;
+        
+        case kStrong:
+            _isTankDone = true;
+            break;
+        
+        case kStrongYellow:
+            if (aTank->_life == 2){
+                aTank->_life--;
+                frame = FRAME("en6.png");
+                aTank->_eKind = kStrong;
+                aTank->setDisplayFrame(frame);
+            }else {
+                _isTankDone = true;
+            }
+            break;
+        
+        case kStrongRedLife3:
+            
+            if (aTank->_isRead) {
+                //[_delegate createTool];
+                aTank->_isRead = false;
+            }
+            if (aTank->_life == 3){
+                aTank->_life--;
+                frame = FRAME("en5.png");
+                aTank->_eKind = kStrongYellow;
+                aTank->setDisplayFrame(frame);
+            }else if (aTank->_life == 2){
+                aTank->_life--;
+                aTank->_eKind = kStrong;
+                frame = FRAME("en6.png");
+                aTank->setDisplayFrame(frame);
+            }
+            else {
+                _isTankDone = true;
+            }
+            break;
+        
+        case kStrongRed:
+            
+            //[_delegate createTool];
+            _isTankDone = true;
+            break;
+    
+        case kStrongGreen:
+            if (aTank->_life == 3){
+                aTank->_life--;
+                aTank->_eKind = kStrongYellow;
+                frame = FRAME("en5.png");
+                aTank->setDisplayFrame(frame);
+            }else if (aTank->_life == 2){
+                aTank->_eKind = kStrong;
+                aTank->_life--;
+                frame = FRAME("en6.png");
+                aTank->setDisplayFrame(frame);
+            }
+            else {
+                _isTankDone = true;
+            }
+            break;
+            
+        
+        case kQuikeR:
+            
+            //[_delegate createTool];
+            _isTankDone = true;
+            break;
+        
+        case kSlowR:
+            
+            //[_delegate createTool];
+            _isTankDone = true;
+            break;
+        
+        default:
+            break;
+    }
+}
+
+void TankSprite::animationBang()
+{
+    CCArray* array = new CCArray();
+    CCSpriteFrame* f1;
+    for (int i = 1; i < 3; i++) {
+        CCString* name = CCString::createWithFormat("explode%1d.png", i);
+        f1 = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+        array->addObject(f1);
+    }
+    
+    CCAnimation* anim = CCAnimation::createWithSpriteFrames(array, 0.1);
+    anim->setRestoreOriginalFrame(true);
+    
+    CCAnimate *animate = CCAnimate::create(anim);
+    this->runAction(animate);
+    array->removeAllObjects();
+}
+
+bool TankSprite::checkBound()
+{
+    if ((_buttle->getPosition().y + _buttle->getContentSize().height/2) > _mapSize.height){
+        return true;
+    }
+    else if((_buttle->getPosition().y - _buttle->getContentSize().height/2) < 0){
+        return true;
+    }
+    else if((_buttle->getPosition().x - _buttle->getContentSize().width/2) < 0){
+        return true;
+    }
+    else if((_buttle->getPosition().x + _buttle->getContentSize().width/2) > _mapSize.width){
+        return true;
+    }
+    return true;
 }
